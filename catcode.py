@@ -14,6 +14,9 @@ class NoSuchDirectoryException(Exception):
 class BadFileTypeFormat(Exception):
     pass
 
+class FileAlreadyExistsException(Exception):
+    pass
+
 
 def catcode(file_type: str, directory: str, output_file_name: str, comment_str: str='#') -> TextIO:
     '''
@@ -30,8 +33,11 @@ def catcode(file_type: str, directory: str, output_file_name: str, comment_str: 
     output_data = concat_code_files(file_type, directory, comment_str)
     output_file = output_file_name + '.' + file_type 
 
-    with open(output_file, 'w') as f:
-        f.write(output_data)
+    if not os.path.exists(output_file):
+        with open(output_file, 'w') as f:
+            f.write(output_data)
+    else:
+        raise FileAlreadyExistsException
 
     print(f'Success! Your concatenated code is in {output_file}.')
 
@@ -108,11 +114,17 @@ def get_file_metadata(file_path: str) -> str:
 ## ========================
 def main(argv):
     
-    if len(argv) not in (4,5):
+    NARGS_NO_DEFAULTS = 4
+    NARGS = 5
+    if len(argv) not in (NARGS_NO_DEFAULTS, NARGS):
         raise SystemExit(f'Error: arguments are as follows: {argv[0]} ' + 'file_type directory_name output_file_name(without extension)')
 
     #TODO: alter functionality based on optional arguments 
-    catcode(argv[1],argv[2],argv[3])
+    if len(argv) == NARGS_NO_DEFAULTS:
+        catcode(argv[1],argv[2],argv[3])
+    elif len(argv) == NARGS:
+        catcode(argv[1],argv[2],argv[3], argv[4])
+
 
 
 if __name__ == '__main__':
