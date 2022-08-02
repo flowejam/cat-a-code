@@ -60,10 +60,10 @@ def concat_code_files(file_type: str, directory: str, comment_str: str='#') -> s
     output_concat_code = ''
 
     while len(dir_queue) != 0:
-        dir_to_process = dir_queue.pop()
+        dir_to_process = dir_queue.popleft()
         files, directories = get_dirs_and_file_type_matches(file_type, dir_to_process)
         for a_directory in directories:
-            dir_queue.appendleft(a_directory)
+            dir_queue.append(a_directory)
         output_concat_code += process_code_files(files, comment_str)
 
     return output_concat_code
