@@ -1,4 +1,4 @@
-## CATCODE
+## CAT-A-CODE
 
 Concatenate your code files!
 
