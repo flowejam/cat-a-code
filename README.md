@@ -9,6 +9,7 @@ examples:
 1) catcode.py py my_python_files all_python_code_in_folder
 2) catcode.py java my_java_files all_java_code_in_folder //
 
+Concatenate all C code in the linux kernel!: 
 ![example](https://user-images.githubusercontent.com/91450942/183007617-c12fe7a8-bfca-4fbe-8d6f-6aedda0503ad.gif)
 
 
